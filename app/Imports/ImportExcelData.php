@@ -5,7 +5,6 @@ use App\Models\Departamento;
 use App\Models\Gerencia;
 use App\Models\Persona;
 use App\Models\PersonaPuesto;
-use App\Models\ProcesoDeIncorporacion;
 use App\Models\Puesto;
 use App\Models\RequisitosPuesto;
 use App\Models\Requisitos;
@@ -38,7 +37,7 @@ class ImportExcelData implements ToModel, WithStartRow
             $personaPuesto = $this->migrarPersonaPuesto($row[13], $row[14], $row[0] . ' ' . $row[6], $row[19], $row[20], $row[39], $row[40], $row[41], $row[9], $puesto->id, $persona->id);
         }
 
-        $procesoDeIncorporacion = $this->migrarProcesoDeIncorporacion($row[21], $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29], $row[30], $row[31], $row[32], $row[33], $row[34], $row[35], $row[36], $row[37], $row[38], $puesto->id);
+        // $procesoDeIncorporacion = $this->migrarProcesoDeIncorporacion($row[21], $row[22], $row[23], $row[24], $row[25], $row[26], $row[27], $row[28], $row[29], $row[30], $row[31], $row[32], $row[33], $row[34], $row[35], $row[36], $row[37], $row[38], $puesto->id);
 
         $requisitos = $this->migrarRequisitos($row[43], $row[44], $row[45], $row[46]);
 
@@ -202,56 +201,56 @@ class ImportExcelData implements ToModel, WithStartRow
         return $personaPuesto;
     }
 
-    public function migrarProcesoDeIncorporacion($propuestos, $estado, $remitente, $fechaAccion, $responsable, $informeCuadro, $fechaInformeCuadro, $hpHr, $sippase, $idioma, $fechaMovimiento, $tipoMovimiento, $itemOrigen, $cargoOrigen, $memorandum, $ra, $fechaMermorialRap, $sayri, $puestoId): ProcesoDeIncorporacion
-    {
-        $procesoDeIncorporacion = ProcesoDeIncorporacion::where('propuestos', $propuestos)->where('puesto_id', $puestoId)->first();
+    // public function migrarProcesoDeIncorporacion($propuestos, $estado, $remitente, $fechaAccion, $responsable, $informeCuadro, $fechaInformeCuadro, $hpHr, $sippase, $idioma, $fechaMovimiento, $tipoMovimiento, $itemOrigen, $cargoOrigen, $memorandum, $ra, $fechaMermorialRap, $sayri, $puestoId): ProcesoDeIncorporacion
+    // {
+    //     $procesoDeIncorporacion = ProcesoDeIncorporacion::where('propuestos', $propuestos)->where('puesto_id', $puestoId)->first();
 
-        if (!isset($procesoDeIncorporacion)) {
-            if (!empty($fechaAccion)) {
-                $timestampFechaAccion = $this->convertirFechaATimestamp($fechaAccion);
-                $fechaAccion = Carbon::createFromTimestamp($timestampFechaAccion)->format('Y-m-d');
-            }
+    //     if (!isset($procesoDeIncorporacion)) {
+    //         if (!empty($fechaAccion)) {
+    //             $timestampFechaAccion = $this->convertirFechaATimestamp($fechaAccion);
+    //             $fechaAccion = Carbon::createFromTimestamp($timestampFechaAccion)->format('Y-m-d');
+    //         }
 
-            if (!empty($fechaInformeCuadro)) {
-                $timestampFechaInformeCuadro = $this->convertirFechaATimestamp($fechaInformeCuadro);
-                $fechaInformeCuadro = Carbon::createFromTimestamp($timestampFechaInformeCuadro)->format('Y-m-d');
-            }
+    //         if (!empty($fechaInformeCuadro)) {
+    //             $timestampFechaInformeCuadro = $this->convertirFechaATimestamp($fechaInformeCuadro);
+    //             $fechaInformeCuadro = Carbon::createFromTimestamp($timestampFechaInformeCuadro)->format('Y-m-d');
+    //         }
 
-            if (!empty($fechaMovimiento)) {
-                $timestampFechaMovimiento = $this->convertirFechaATimestamp($fechaMovimiento);
-                $fechaMovimiento = Carbon::createFromTimestamp($timestampFechaMovimiento)->format('Y-m-d');
-            }
+    //         if (!empty($fechaMovimiento)) {
+    //             $timestampFechaMovimiento = $this->convertirFechaATimestamp($fechaMovimiento);
+    //             $fechaMovimiento = Carbon::createFromTimestamp($timestampFechaMovimiento)->format('Y-m-d');
+    //         }
 
-            if (!empty($fechaMermorialRap)) {
-                $timestampFechaMermorialRap = $this->convertirFechaATimestamp($fechaMermorialRap);
-                $fechaMermorialRap = Carbon::createFromTimestamp($timestampFechaMermorialRap)->format('Y-m-d');
-            }
+    //         if (!empty($fechaMermorialRap)) {
+    //             $timestampFechaMermorialRap = $this->convertirFechaATimestamp($fechaMermorialRap);
+    //             $fechaMermorialRap = Carbon::createFromTimestamp($timestampFechaMermorialRap)->format('Y-m-d');
+    //         }
 
-            $procesoDeIncorporacion = ProcesoDeIncorporacion::create([
-                'propuestos' => $propuestos,
-                'estado' => $estado,
-                'remitente' => $remitente,
-                'fechaAccion' => $fechaAccion,
-                'responsable' => $responsable,
-                'informeCuadro' => $informeCuadro,
-                'fechaInformeCuadro' => $fechaInformeCuadro,
-                'hpHr' => $hpHr,
-                'sippase' => $sippase,
-                'idioma' => $idioma,
-                'fechaMovimiento' => $fechaMovimiento,
-                'tipoMovimiento' => $tipoMovimiento,
-                'itemOrigen' => $itemOrigen,
-                'cargoOrigen' => $cargoOrigen,
-                'memorandum' => $memorandum,
-                'ra' => $ra,
-                'fechaMermorialRap' => $fechaMermorialRap,
-                'sayri' => $sayri,
-                'puesto_id' => $puestoId,
-            ]);
-        }
+    //         $procesoDeIncorporacion = ProcesoDeIncorporacion::create([
+    //             'propuestos' => $propuestos,
+    //             'estado' => $estado,
+    //             'remitente' => $remitente,
+    //             'fechaAccion' => $fechaAccion,
+    //             'responsable' => $responsable,
+    //             'informeCuadro' => $informeCuadro,
+    //             'fechaInformeCuadro' => $fechaInformeCuadro,
+    //             'hpHr' => $hpHr,
+    //             'sippase' => $sippase,
+    //             'idioma' => $idioma,
+    //             'fechaMovimiento' => $fechaMovimiento,
+    //             'tipoMovimiento' => $tipoMovimiento,
+    //             'itemOrigen' => $itemOrigen,
+    //             'cargoOrigen' => $cargoOrigen,
+    //             'memorandum' => $memorandum,
+    //             'ra' => $ra,
+    //             'fechaMermorialRap' => $fechaMermorialRap,
+    //             'sayri' => $sayri,
+    //             'puesto_id' => $puestoId,
+    //         ]);
+    //     }
 
-        return $procesoDeIncorporacion;
-    }
+    //     return $procesoDeIncorporacion;
+    // }
 
     public function migrarRequisitos($formacionRequerida, $experienciaProfesionalSegunCargo, $experienciaRelacionadoAlArea, $experienciaEnFuncionesDeMando): Requisitos
     {

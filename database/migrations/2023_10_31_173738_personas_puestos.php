@@ -12,14 +12,15 @@ return new class extends Migration
         Schema::create('personas_puestos', function (Blueprint $table) {
             $table->id();
             $table->string('estadoFormacion')->nullable();
-            $table->string('formacion')->nullable();
             $table->string('fileAc')->nullable();
-            $table->date('fechaInicioEnSin')->nullable();
             $table->date('fechaInicio')->nullable();
-            $table->string('nombreCompletoDesvinculacion')->nullable();
             $table->string('motivoBaja')->nullable();
             $table->date('fechaFin')->nullable();
-            $table->string('estado')->nullable();
+            $table->tinyInteger('estado')->nullable();
+            $table->unsignedBigInteger('creador_user_id')->nullable();
+            $table->unsignedBigInteger('actualizador_user_id')->nullable();
+            $table->foreign('creador_user_id')->references('id')->on('users')->nullable();
+            $table->foreign('actualizador_user_id')->references('id')->on('users')->nullable();
             $table->unsignedBigInteger('puesto_id')->nullable();
             $table->unsignedBigInteger('persona_id')->nullable();
             $table->foreign('puesto_id')->references('id')->on('puestos');

@@ -23,14 +23,9 @@ class Puesto extends Model
         return $this->hasMany(PersonaPuesto::class, 'puesto_id', 'id');
     }
 
-    public function procesoDeIncorporacion()
+    public function requisitos()
     {
-        return $this->hasMany(ProcesoDeIncorporacion::class);
-    }
-
-    public function requisitos_puesto()
-    {
-        return $this->hasMany(RequisitosPuesto::class);
+        return $this->hasMany(Requisitos::class);
     }
 
     public function departamento()

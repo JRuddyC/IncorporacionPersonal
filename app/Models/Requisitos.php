@@ -15,12 +15,13 @@ class Requisitos extends Model
         'formacionRequerida',
         'experienciaProfesionalSegunCargo',
         'experienciaRelacionadoAlArea',
-        'experienciaEnFuncionesDeMando'
+        'experienciaEnFuncionesDeMando',
+        'puesto_id'
     ];
 
-    public function requisitosPuesto()
+    public function puesto()
     {
-        return $this->hasMany(RequisitosPuesto::class);
+        return $this->belongsTo(Puesto::class);
     }
 
 }

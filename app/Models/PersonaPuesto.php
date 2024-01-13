@@ -11,16 +11,15 @@ class PersonaPuesto extends Model
     protected $fillable = [
         'id',
         'estadoFormacion',
-        'formacion',
         'fileAc',
-        'fechaInicioEnSin',
         'fechaInicio',
-        'nombreCompletoDesvinculacion',
         'motivoBaja',
         'fechaFin',
         'estado',
         'puesto_id',
         'persona_id',
+        'creador_user_id',
+        'actualizador_user_id'
     ];
 
     public function puesto()

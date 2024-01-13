@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\IncorporacionFormulario;
 use App\Models\AreaDeFormacion;
 use App\Models\GradoAcademico;
-use App\Models\Universidad;
+use App\Models\Institucion;
 use App\Models\Persona;
 use App\Models\Puesto;
 use Illuminate\Http\Request;
@@ -102,7 +102,7 @@ class IncorporacionesController extends Controller
             'observacion' => 'required|string',
         ]);
 
-        if (empty($request->gradoAcademico_id) || empty($request->areaFormacion_id) || empty($request->universidad_id) || empty($request->anoConclusion) || empty($request->observacion)) {
+        if (empty($request->gradoAcademico_id) || empty($request->areaFormacion_id) || empty($request->institucion_id) || empty($request->anioConclusion) || empty($request->observacion)) {
             return response()->json(['error' => 'Campos requeridos vacíos'], 400);
         }
 
@@ -140,8 +140,8 @@ class IncorporacionesController extends Controller
 
         $persona->gradoAcademico_id = $request->input('gradoAcademico_id');
         $persona->areaFormacion_id = $request->input('areaFormacion_id');
-        $persona->universidad_id = $request->input('universidad_id');
-        $persona->anoConclusion = $request->input('anoConclusion');
+        $persona->institucion_id = $request->input('institucion_id');
+        $persona->anioConclusion = $request->input('anioConclusion');
         $persona->save();
 
         $incForm = new IncorporacionFormulario();
@@ -186,9 +186,9 @@ class IncorporacionesController extends Controller
     public function crearInstitucion(Request $request)
     {
         try {
-            $universidad = new Universidad();
-            $universidad->nombre = $request->input('institucion');
-            $universidad->save();
+            $institucion = new Institucion();
+            $institucion->nombre = $request->input('institucion');
+            $institucion->save();
 
             return response()->json(['message' => 'Se creó la Institucion Exitosamente!']);
         } catch (\Exception $e) {
@@ -391,7 +391,7 @@ class IncorporacionesController extends Controller
         return response()->json($incorporacion);
     }
 
-    // Actualizar cambio de item 
+    // Actualizar cambio de item
     public function incActualizar(Request $request, $incorporacionId)
     {
         $incorporacionForm = IncorporacionFormulario::find($incorporacionId);
@@ -567,8 +567,8 @@ class IncorporacionesController extends Controller
         $templateProcessor->setValue('puesto_nuevo.estado', $incorporacion->puesto_nuevo->estado);
         $templateProcessor->setValue('persona.grado', $incorporacion->persona->gradoAcademico->nombre . ' ');
         $templateProcessor->setValue('persona.formacion', $incorporacion->persona->areaFormacion->nombre);
-        $templateProcessor->setValue('persona.institucion', $incorporacion->persona->universidad->nombre . ' ');
-        $templateProcessor->setValue('persona.conclusion', $incorporacion->persona->anoConclusion);
+        $templateProcessor->setValue('persona.institucion', $incorporacion->persona->institucion->nombre . ' ');
+        $templateProcessor->setValue('persona.conclusion', $incorporacion->persona->anioConclusion);
         $templateProcessor->setValue('incorporacion.respaldoFormacion', $this->obtenerTextoSegunValorDeFormacion($incorporacion->respaldo_formacion));
 
         if ($incorporacion) {
@@ -707,8 +707,8 @@ class IncorporacionesController extends Controller
         $templateProcessor->setValue('puesto_nuevo.estado', $incorporacion->puesto_nuevo->estado);
         $templateProcessor->setValue('persona.grado', $incorporacion->persona->gradoAcademico->nombre . ' ');
         $templateProcessor->setValue('persona.formacion', $incorporacion->persona->areaFormacion->nombre);
-        $templateProcessor->setValue('persona.institucion', $incorporacion->persona->universidad->nombre . ' ');
-        $templateProcessor->setValue('persona.conclusion', $incorporacion->persona->anoConclusion);
+        $templateProcessor->setValue('persona.institucion', $incorporacion->persona->institucion->nombre . ' ');
+        $templateProcessor->setValue('persona.conclusion', $incorporacion->persona->anioConclusion);
         $templateProcessor->setValue('incorporacion.respaldoFormacion', $this->obtenerTextoSegunValorDeFormacion($incorporacion->respaldo_formacion));
 
         if ($incorporacion) {
@@ -987,7 +987,7 @@ class IncorporacionesController extends Controller
                 break;
         }
         $templateProcessor->setValue('ubicacion', $ubicacion);
-        
+
         $carbonFechaIncorporacion = Carbon::parse($incorporacion->fecha_de_incorporacion);
         setlocale(LC_TIME, 'es_UY');
         $carbonFechaIncorporacion->locale('es_UY');

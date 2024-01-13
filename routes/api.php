@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\ImportarExcelController;
 use App\Http\Controllers\IncorporacionesController;
 use App\Http\Controllers\PersonaPuestoController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,10 @@ Route::middleware(['auth:sanctum','verified'])->group(function(){
     Route::apiResource('/role', RoleController::class);
     Route::apiResource('/permissions', PermissionController::class);
 });
+
+// importar por api
+Route::post('/planilla', [ImportarExcelController::class, 'importExcel'])->name('planilla');
+
 
 Route::post('/persona-puesto/listar', [PersonaPuestoController::class, 'listarPuesto'])->name('importaciones.buscar');
 Route::post('/persona-puesto/filtrar', [PersonaPuestoController::class, 'filtrarAutoComplete'])->name('importaciones.filtrar-autocomplete');

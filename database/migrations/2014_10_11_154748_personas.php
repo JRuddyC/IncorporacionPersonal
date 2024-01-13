@@ -11,7 +11,6 @@ return new class extends Migration {
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
             $table->string('ci')->unique();
-            $table->string('an')->nullable();
             $table->string('exp')->nullable();
             $table->string('nombres');
             $table->string('primerApellido');
@@ -24,13 +23,13 @@ return new class extends Migration {
             $table->string('imagen')->nullable();
             $table->unsignedBigInteger('gradoAcademico_id')->nullable();
             $table->unsignedBigInteger('areaFormacion_id')->nullable();
-            $table->unsignedBigInteger('universidad_id')->nullable();
-            $table->year('anoConclusion')->nullable();
+            $table->unsignedBigInteger('institucion_id')->nullable();
+            $table->year('anioConclusion')->nullable();
             $table->timestamps();
-
             $table->foreign('gradoAcademico_id')->references('id')->on('grado_academicos');
             $table->foreign('areaFormacion_id')->references('id')->on('area_formacions');
-            $table->foreign('universidad_id')->references('id')->on('universidads');
+            $table->foreign('institucion_id')->references('id')->on('instituciones');
+            $table->date('fechaInicioEnSin')->nullable();
         });
     }
 

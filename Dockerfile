@@ -1,5 +1,5 @@
 # Set the base image for subsequent instructions
-FROM php:8.2-fpm
+FROM php:8.1
 
 # Update packages
 WORKDIR /var/www

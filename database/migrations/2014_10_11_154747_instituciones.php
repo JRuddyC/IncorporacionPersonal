@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('universidads', function (Blueprint $table) {
+        Schema::create('instituciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();
         });
 
-        DB::table('universidads')->insert([
+        DB::table('instituciones')->insert([
             ['nombre' => 'Instituto Técnico Boliviano Japonés (INBOLJAP)'],
             ['nombre' => 'Instituto Técnico Boliviano Suizo (TBS)'],
             ['nombre' => 'Instituto Técnico Nacional de Comercio (INCOS)'],
@@ -51,12 +51,11 @@ return new class extends Migration {
             ['nombre' => 'Univ. Salesiana de Bolivia (USALESIANA) '],
             ['nombre' => 'Universidad Técnica de Oruro (UTO)'],
             ['nombre' => 'Universidad Tecnológica Boliviana (UTB)'],
-
         ]);
     }
 
     public function down()
     {
-        Schema::dropIfExists('universidads');
+        Schema::dropIfExists('instituciones');
     }
 };

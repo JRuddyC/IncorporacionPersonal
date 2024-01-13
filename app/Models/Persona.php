@@ -21,14 +21,15 @@ class Persona extends Model
         'segundoApellido',
         'nombreCompleto',
         'formacion',
+        'fechaInicioEnSin',
         'sexo',
         'fechaNacimiento',
         'telefono',
         'imagen',
         'gradoAcademico_id',
         'areaFormacion_id',
-        'universidad_id',
-        'anoConclusion',
+        'institucion_id',
+        'anioConclusion',
     ];
 
     public function personaPuesto()
@@ -61,8 +62,8 @@ class Persona extends Model
         return $this->belongsTo(AreaDeFormacion::class, 'areaFormacion_id', 'id');
     }
 
-    public function universidad()
+    public function institucion()
     {
-        return $this->belongsTo(Universidad::class, 'universidad_id', 'id');
+        return $this->belongsTo(Institucion::class, 'institucion_id', 'id');
     }
 }
