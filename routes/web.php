@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Fortify\Fortify;
+use App\Http\Controllers\ImportarExcelController;
+use App\Http\Controllers\ImportarImagesController;
+use App\Http\Controllers\IncorporacionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/users', [ViewController::class,'users'])->name('users');
     Route::get('/roles', [ViewController::class,'roles'])->name('roles');
     Route::get('/permissions', [ViewController::class,'permissions'])->name('permissions');
+    Route::post('/planilla', [ImportarExcelController::class, 'importExcel'])->name('planilla');
+    Route::post('/importar-imagenes', [ImportarImagesController::class, 'importImagenes'])->name('importar.imagenes');
+    Route::get('/imagen-persona/{personaId}', [ImportarImagesController::class, 'getImagenPersona'])->name('imagen-persona');
+    Route::get('/incorporaciones', [IncorporacionesController::class, 'mostarIncorporaciones'])->name('incorporaciones');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/migraciones', function () {
