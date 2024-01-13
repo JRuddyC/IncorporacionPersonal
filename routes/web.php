@@ -35,3 +35,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/migraciones', function () {
     return Inertia::render('Migraciones/Index');
 })->name('migraciones');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/incorporaciones', function () {
+    return Inertia::render('Incorporaciones/Index');
+})->name('incorporaciones');

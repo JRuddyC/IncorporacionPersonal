@@ -52,6 +52,11 @@ export default {
                             to: this.route('migraciones')
                         },
                         {
+                            label: 'Incorporaciones',
+                            icon: 'pi pi-fw pi-folder-open',
+                            to: this.route('incorporaciones')
+                        },
+                        {
                             label: 'Sign out', icon: 'pi pi-fw pi-sign-out', command: () => {
                                 this.$inertia.post(this.route('logout'))
                             },
