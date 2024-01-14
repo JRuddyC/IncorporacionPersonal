@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IncorporacionFormulario extends Model
+class Incorporacion extends Model
 {
-    protected $table = 'incorporacion_formularios';
+    protected $table = 'incorporaciones';
 
     protected $fillable = [
         'id',
@@ -42,7 +42,6 @@ class IncorporacionFormulario extends Model
         'fecha_rap',
         'responsable',
         'observacion'
-        // !Section
     ];
 
     public function puesto_actual()

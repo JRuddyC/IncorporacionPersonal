@@ -4,14 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateIncorporacionesTable extends Migration
 {
-     /**
-     * Run the migrations.
-     */
     public function up()
     {
-        Schema::create('incorporacion_formularios', function (Blueprint $table) {
+        Schema::create('incorporaciones', function (Blueprint $table) {
             $table->id();
             $table->integer('paso')->default(1); // 1: evaluacion, 2: incorporacion, 3:seguimiento
             // SECTION: EVALUACION
@@ -56,6 +53,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('incorporacion_formularios');
+        Schema::dropIfExists('incorporaciones');
     }
 };

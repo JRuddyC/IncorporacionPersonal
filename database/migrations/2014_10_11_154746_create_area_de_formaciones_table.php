@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class CreateAreaDeFormacionesTable extends Migration {
     public function up()
     {
-        Schema::create('area_formacions', function (Blueprint $table) {
+        Schema::create('area_de_formaciones', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();
         });
 
-        DB::table('area_formacions')->insert([
+        DB::table('area_de_formaciones')->insert([
             ['nombre' => 'Aministracion de Empresas'],
             ['nombre' => 'Administracion Publica'],
             ['nombre' => 'Auditoria Publica'],
@@ -39,6 +39,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('area_formacions');
+        Schema::dropIfExists('area_de_formaciones');
     }
 };

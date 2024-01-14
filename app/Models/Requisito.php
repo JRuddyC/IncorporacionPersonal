@@ -12,10 +12,10 @@ class Requisitos extends Model
 
     protected $fillable = [
         'id',
-        'formacionRequerida',
-        'experienciaProfesionalSegunCargo',
-        'experienciaRelacionadoAlArea',
-        'experienciaEnFuncionesDeMando',
+        'formacion_requerida',
+        'experiencia_profesional_segun_cargo',
+        'experiencia_relacionado_al_area',
+        'experiencia_en_funciones_de_mando',
         'puesto_id'
     ];
 

@@ -9,7 +9,6 @@ use App\Models\ImportLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Validators\ValidationException;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class ImportarExcelController extends Controller
 {

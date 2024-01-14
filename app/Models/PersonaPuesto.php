@@ -10,14 +10,15 @@ class PersonaPuesto extends Model
 
     protected $fillable = [
         'id',
-        'estadoFormacion',
-        'fileAc',
-        'fechaInicio',
-        'motivoBaja',
-        'fechaFin',
-        'estado',
+        'estado_formacion',  //ya sea carrera regular o irregular jalado de la planilla
+        'file_ac', //jalado de la planila
+        'fecha_inicio',
+        'personal_antiguo_en_el_cargo',
+        'motivo_baja',
+        'fecha_fin',
         'puesto_id',
         'persona_id',
+        'estado',        
         'creador_user_id',
         'actualizador_user_id'
     ];

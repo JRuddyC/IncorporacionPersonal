@@ -9,7 +9,6 @@ class Departamento extends Model
     protected $fillable = [
         'id',
         'nombre',
-        'conector',
         'gerencia_id'
     ];
 

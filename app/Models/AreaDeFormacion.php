@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AreaDeFormacion extends Model
 {
-    protected $table = 'area_formacions';
+    protected $table = 'area_de_formaciones';
 
     protected $fillable = [
         'id',

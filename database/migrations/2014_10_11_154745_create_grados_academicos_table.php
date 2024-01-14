@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class CreateGradosAcademicosTable extends Migration {
     public function up()
     {
-        Schema::create('grado_academicos', function (Blueprint $table) {
+        Schema::create('grados_academicos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->timestamps();
         });
 
-        DB::table('grado_academicos')->insert([
+        DB::table('grados_academicos')->insert([
             ['nombre' => 'Bachiller'],
             ['nombre' => 'Egresado'],
             ['nombre' => 'Estudiante Universitario'],
@@ -25,6 +25,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('grado_academicos');
+        Schema::dropIfExists('grados_academicos');
     }
 };

@@ -8,13 +8,13 @@ class Puesto extends Model
 {
     protected $fillable = [
         'id',
-        'denominacion',
-        'objetivo',
         'item',
-        'estado',
+        'denominacion',
         'salario',
-        'salarioLiteral',
+        'salario_literal',
+        'objetivo', 
         'departamento_id',
+        'estado',
         'persona_actual_id'
     ];
 
@@ -38,8 +38,8 @@ class Puesto extends Model
         return $this->belongsTo(Persona::class, 'persona_actual_id', 'id');
     }
 
-    public function incorporacionFormulario()
+    public function incorporacion()
     {
-        return $this->hasMany(IncorporacionFormulario::class);
+        return $this->hasMany(Incorporacion::class);
     }
 }
