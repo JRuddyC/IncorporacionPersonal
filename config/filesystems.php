@@ -42,6 +42,22 @@ return [
             'visibility' => 'public',
         ],
 
+        'img_personas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/img_personas'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'private',
+            'throw' => false,
+        ],
+
+        'form_templates' => [
+            'driver' => 'local',
+            'root' => storage_path('app/form_templates'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'private',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

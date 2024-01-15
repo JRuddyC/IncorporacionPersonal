@@ -2,3 +2,13 @@
 @import "variables";
 @import "./sass/_layout";
 @import "./_overrides";
+
+@import '~sweetalert2/src/variables';
+
+$swal2-confirm-button-background-color: $primaryColor;
+
+@import '~sweetalert2/src/sweetalert2';
+
+.swal2-container {
+  z-index: 1102;
+}

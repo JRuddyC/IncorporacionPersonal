@@ -1,19 +1,23 @@
 <template>
-    <Head title="Migraciones"></Head>
+    <Head title="Planilla"></Head>
     <div class="grid">
         <div class="col-12">
             <div class="card">
                 <Toolbar class="mb-4">
                     <template v-slot:start>
-                        <h5>MIGRACIONES</h5>
+                        <h5>Planilla del Personal</h5>
                     </template>
                     <template v-slot:end>
                         <div class="my-2">
                             <Button
-                                label="IMPORTAR"
-                                icon="pi pi-download"
-                                class="p-button-success mr-2"
+                                label="Planilla"
+                                class="p-button-primary mr-2"
                                 @click="openModalImport()"
+                            />
+                            <Button
+                                label="Imagenes"
+                                class="p-button-secondary"
+                                @click="openModalImportFotos()"
                             />
                         </div>
                     </template>
@@ -22,6 +26,7 @@
             </div>
         </div>
         <ImportarModal ref="refImportarModal" />
+        <ImportarFotos ref="refImportarFotos" />
     </div>
 </template>
 
@@ -37,13 +42,20 @@ export default {
 <script setup>
 import { ref } from "vue";
 import ImportarModal from "./Components/ImportarModal.vue";
+import ImportarFotos from "./Components/ImportarFotos.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import Toolbar from "primevue/toolbar";
 
 const refImportarModal = ref();
+
+const refImportarFotos = ref();
+
 function openModalImport() {
     refImportarModal.value?.open();
+}
+function openModalImportFotos() {
+    refImportarFotos.value?.open();
 }
 </script>
 

@@ -6,6 +6,7 @@ import ToastService from "primevue/toastservice";
 import pl from './Locales/pl.json';
 import en from './Locales/en.json';
 import es from './Locales/es.json';
+// import 'sweetalert2/src/sweetalert2.scss'
 import { createI18n } from 'vue-i18n';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';

@@ -2,7 +2,7 @@
     <Dialog
         class="modal-import"
         v-model:visible="show"
-        header="MIGRAR EXCEL"
+        header="Migrar Planilla"
         content-class="content-dialog-import"
     >
         <template #default>
@@ -32,6 +32,7 @@
 import Dialog from "primevue/dialog";
 import FileUpload from "primevue/fileupload";
 import { ref, computed } from "vue";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 const show = ref(false);
 function open() {
@@ -50,6 +51,15 @@ function beforeUpload(request) {
     console.log(request);
     request.xhr.setRequestHeader("X-CSRF-TOKEN", csrf.value);
     request.xhr.timeout = 1000*60*2;
+    request.xhr.onload = (resp) => {
+        const respServer = JSON.parse(resp.originalTarget?.response);
+        Swal.fire({
+            title: respServer.success?'Exito!':'Error!',
+            text: respServer.success?'Planilla migrada exitosamente!':respServer.message,
+            icon: respServer.success?'success':'error',
+            confirmButtonText: 'Aceptar'
+        });
+    };
     return request;
 }
 </script>

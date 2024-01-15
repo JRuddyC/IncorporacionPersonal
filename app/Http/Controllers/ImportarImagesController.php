@@ -7,7 +7,6 @@ use App\Models\Persona;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Illuminate\Support\Facades\File;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class ImportarImagesController extends Controller
 {
@@ -41,20 +40,16 @@ class ImportarImagesController extends Controller
                         $zip->close();
                     }
                     unlink($rutaArchivo);
-                    Alert::success('Éxito', 'Imágenes importadas correctamente.')->persistent(true, true);
-                    return redirect()->back();
+                    return $this->sendSuccess(['msn' => 'Imágenes importadas correctamente.']);
                 } else {
-                    Alert::error('Error', 'El archivo no es un archivo ZIP.')->persistent(true, true);
-                    return redirect()->back();
+                    return $this->sendError('El archivo no es un archivo ZIP.');
                 }
             } else {
-                Alert::error('Error', 'No se ha proporcionado un archivo.')->persistent(true, true);
-                return redirect()->back();
+                return $this->sendError('No se ha proporcionado un archivo.');
             }
-            return redirect()->back()->with('success', 'Imágenes importadas correctamente.');
+            return $this->sendSuccess(['msn' => 'Imágenes importadas correctamente.']);
         } catch (\Exception $e) {
-            Alert::error('Error', 'Error: ' . $e->getMessage())->persistent(true, true);
-            return redirect()->back();
+            return $this->sendError('Error: ' . $e->getMessage());
         }
     }
 
@@ -67,8 +62,7 @@ class ImportarImagesController extends Controller
             $mime = File::mimeType($disk->path($persona->imagen));
             return response($content)->header('Content-Type', $mime);
         } else {
-            return response('', 404);
+            return $this->sendError(['msn'=>'No se encontro a la persona'],404);
         }
     }
 }
-

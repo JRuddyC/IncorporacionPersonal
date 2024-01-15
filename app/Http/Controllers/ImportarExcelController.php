@@ -28,12 +28,12 @@ class ImportarExcelController extends Controller
             foreach ($failures as $failure) {
                 $errorMessages[] = "Fila {$failure->row()}: {$failure->errors()[0]}";
             }
-            return response()->json(["msn"=>"Error","errorMessages" => $errorMessages],406);
+            return $this->sendError($e->getMessage(),406);
         } catch (\Exception $e) {
             // dd($e);
-            return response()->json(["msn"=>"Error desconosido","error"=>$e],406);
+            return $this->sendError($e->getMessage(),406);
         }
 
-        return $this->sendSuccess(["msn"=>"exitoso"]);
+        return $this->sendSuccess(["msn"=>"Exitoso"]);
     }
 }
