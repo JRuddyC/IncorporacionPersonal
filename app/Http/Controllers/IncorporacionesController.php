@@ -597,7 +597,7 @@ class IncorporacionesController extends Controller
         $templateProcessor->setValue('puesto_nuevo.cumpleExpEnMando', $this->obtenerTextoSegunValor($incorporacion->cumple_exp_mando));
         $templateProcessor->setValue('puesto_nuevo.cumpleFormacion', $this->obtenerTextoSegunValorDeFormacion($incorporacion->cumple_con_formacion));
         $templateProcessor->setValue('persona.profesion', $incorporacion->persona->profesion);
-        $templateProcessor->setValue('puesto_nuevo.salarioLiteral', $incorporacion->puesto_nuevo->salarioLiteral);
+        $templateProcessor->setValue('puesto_nuevo.salario_literal', $incorporacion->puesto_nuevo->salario_literal);
 
         if (isset($incorporacion->puesto_actual)) {
             $fileName = 'InfNotaCambioItem_' . $incorporacion->persona->nombreCompleto;
@@ -737,7 +737,7 @@ class IncorporacionesController extends Controller
         $templateProcessor->setValue('puesto_nuevo.cumpleExpEnMando', $this->obtenerTextoSegunValor($incorporacion->cumple_exp_mando));
         $templateProcessor->setValue('puesto_nuevo.cumpleFormacion', $this->obtenerTextoSegunValorDeFormacion($incorporacion->cumple_con_formacion));
         $templateProcessor->setValue('persona.profesion', $incorporacion->persona->profesion);
-        $templateProcessor->setValue('puesto_nuevo.salarioLiteral', $incorporacion->puesto_nuevo->salarioLiteral);
+        $templateProcessor->setValue('puesto_nuevo.salario_literal', $incorporacion->puesto_nuevo->salario_literal);
 
         $fileName = 'InfMinutaCambioItem_' . $incorporacion->persona->nombreCompleto;
         $savedPath = $disk->path('generados/') . $fileName . '.docx';
@@ -818,7 +818,7 @@ class IncorporacionesController extends Controller
 
         $templateProcessor->setValue('puesto_nuevo.item', $incorporacion->puesto_nuevo->item);
         $templateProcessor->setValue('puesto_nuevo.salario', $incorporacion->puesto_nuevo->salario);
-        $templateProcessor->setValue('puesto_nuevo.salarioLiteral', $incorporacion->puesto_nuevo->salarioLiteral);
+        $templateProcessor->setValue('puesto_nuevo.salario_literal', $incorporacion->puesto_nuevo->salario_literal);
 
         $carbonFechaIncorporacion = Carbon::parse($incorporacion->fecha_de_incorporacion);
         setlocale(LC_TIME, 'es_UY');
@@ -904,7 +904,7 @@ class IncorporacionesController extends Controller
         $templateProcessor->setValue('puesto_nuevo.gerencia', $incorporacion->puesto_nuevo->departamento->gerencia->nombre);
         $templateProcessor->setValue('puesto_nuevo.item', $incorporacion->puesto_nuevo->item);
         $templateProcessor->setValue('puesto_nuevo.salario', $incorporacion->puesto_nuevo->salario);
-        $templateProcessor->setValue('puesto_nuevo.salarioLiteral', $incorporacion->puesto_nuevo->salarioLiteral);
+        $templateProcessor->setValue('puesto_nuevo.salario_literal', $incorporacion->puesto_nuevo->salario_literal);
 
         $carbonFechaIncorporacion = Carbon::parse($incorporacion->fecha_de_incorporacion);
         setlocale(LC_TIME, 'es_UY');

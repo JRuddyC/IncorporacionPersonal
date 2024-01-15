@@ -12,7 +12,7 @@ class Puesto extends Model
         'denominacion',
         'salario',
         'salario_literal',
-        'objetivo', 
+        'objetivo',
         'departamento_id',
         'estado',
         'persona_actual_id'
@@ -25,7 +25,7 @@ class Puesto extends Model
 
     public function requisitos()
     {
-        return $this->hasMany(Requisitos::class);
+        return $this->hasMany(Requisito::class);
     }
 
     public function departamento()

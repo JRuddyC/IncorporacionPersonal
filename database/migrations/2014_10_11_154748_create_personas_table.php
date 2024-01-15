@@ -13,7 +13,7 @@ class CreatePersonasTable extends Migration {
             $table->string('ci')->unique();
             $table->string('exp')->nullable();
             $table->string('nombres');
-            $table->string('primer_apellido');
+            $table->string('primer_apellido')->nullable();
             $table->string('segundo_apellido')->nullable();
             $table->string('nombre_completo');
             $table->string('sexo');

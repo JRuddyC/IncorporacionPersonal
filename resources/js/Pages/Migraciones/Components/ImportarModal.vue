@@ -49,6 +49,7 @@ const csrf = computed(() =>
 function beforeUpload(request) {
     console.log(request);
     request.xhr.setRequestHeader("X-CSRF-TOKEN", csrf.value);
+    request.xhr.timeout = 1000*60*2;
     return request;
 }
 </script>

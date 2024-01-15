@@ -14,12 +14,12 @@ class CreatePersonasPuestosTable extends Migration
             $table->string('estado_formacion')->nullable();
             $table->string('file_ac')->nullable();
             $table->date('fecha_inicio')->nullable();
-            $table->date('personal_antiguo_en_el_cargo')->nullable();
+            $table->string('personal_antiguo_en_el_cargo')->nullable();
             $table->string('motivo_baja')->nullable();
             $table->date('fecha_fin')->nullable();
             $table->tinyInteger('estado')->nullable();
-            $table->unsignedBigInteger('puesto_id')->nullable();
-            $table->unsignedBigInteger('persona_id')->nullable();
+            $table->unsignedBigInteger('puesto_id');
+            $table->unsignedBigInteger('persona_id');
             $table->unsignedBigInteger('creador_user_id')->nullable();
             $table->unsignedBigInteger('actualizador_user_id')->nullable();
             $table->foreign('creador_user_id')->references('id')->on('users')->nullable();
