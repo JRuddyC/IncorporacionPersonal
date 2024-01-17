@@ -4,6 +4,10 @@
     box-shadow: $cardShadow;
     border-radius: $borderRadius;
 
+    .p-card-header {
+        padding: $cardHeaderPadding;
+    }
+
     .p-card-body {
         padding: $cardBodyPadding;
     }

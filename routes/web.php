@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\ImportarExcelController;
 use App\Http\Controllers\ImportarImagesController;
 use App\Http\Controllers\IncorporacionesController;
+use App\Models\Gerencia;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/migraciones', function () {
-    return Inertia::render('Migraciones/Index');
+    return Inertia::render('Migraciones/Index',['gerencias'=> Gerencia::select('id', 'nombre')->get()->map(function ($gerencia) {
+        return [
+          'key' => 'g-' . $gerencia->id,
+          'label' => $gerencia->nombre,
+          'children' => $gerencia->departamento->map(function ($dep) {
+            return [
+              'key' => 'd-' . $dep->id,
+              'label' => $dep->nombre
+            ];
+          })
+        ];
+      })]);
 })->name('migraciones');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/incorporaciones', function () {
