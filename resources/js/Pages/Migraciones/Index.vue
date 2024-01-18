@@ -71,26 +71,73 @@
                             >
                         </div>
                         <div class="col-12">
-                            <Dropdown v-model="estado" :options="[{name:'Ocupado',value:'Ocupado'},{name:'Acefalia',value:'Acefalia'}]" optionLabel="name" option-value="value" placeholder="Estado" class="w-full" show-clear />
+                            <Dropdown
+                                v-model="estado"
+                                :options="[
+                                    { name: 'Ocupado', value: 'Ocupado' },
+                                    { name: 'Acefalia', value: 'Acefalia' },
+                                ]"
+                                optionLabel="name"
+                                option-value="value"
+                                placeholder="Estado"
+                                class="w-full"
+                                show-clear
+                            />
                         </div>
                         <div class="col-12 mt-2">
                             <label class="form-control-label text-secondary"
-                                ><i class="pi pi-building" aria-hidden="true"></i>
+                                ><i
+                                    class="pi pi-building"
+                                    aria-hidden="true"
+                                ></i>
                                 Gerencias</label
                             >
                         </div>
                         <div class="col-12">
-                            <Tree v-model:selectionKeys="value" :value="gerenciasNode" selectionMode="checkbox" class="w-full"></Tree>
+                            <Tree
+                                v-model:selectionKeys="value"
+                                :value="gerenciasNode"
+                                selectionMode="checkbox"
+                                class="w-full"
+                            ></Tree>
                         </div>
                     </div>
                 </template>
             </Card>
         </div>
         <div class="col-8">
-            <Card title="Puestos">
+            <Card>
                 <template #header
                     ><strong class="m-2">Puestos</strong></template
                 >
+                <template #content>
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="flex flex-wrap justify-content-evenly">
+                                <CardPuesto v-for="puesto in puestos" :key="puesto.item" :puesto="puesto" />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <Paginator
+                                :key="limit"
+                                :rows="limit"
+                                :totalRecords="total"
+                                :rowsPerPageOptions="[6, 9, 18, 36]"
+                                :template="{
+                                    '640px':
+                                        'PrevPageLink CurrentPageReport NextPageLink',
+                                    '960px':
+                                        'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+                                    '1300px':
+                                        'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+                                    default:
+                                        'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown JumpToPageInput',
+                                }"
+                                @page="onPaginate"
+                            ></Paginator>
+                        </div>
+                    </div>
+                </template>
             </Card>
         </div>
         <ImportarModal ref="refImportarModal" />
@@ -116,8 +163,10 @@ import ImportarFotos from "./Components/ImportarFotos.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import Toolbar from "primevue/toolbar";
-import Dropdown from 'primevue/dropdown';
-import Tree from 'primevue/tree';
+import Dropdown from "primevue/dropdown";
+import Tree from "primevue/tree";
+import Paginator from "primevue/paginator";
+import CardPuesto from "./Components/CardPuesto.vue";
 import VueSimpleTypeahead from "vue3-simple-typeahead";
 import "vue3-simple-typeahead/dist/vue3-simple-typeahead.css"; //Optional default CSS
 import axios from "axios";
@@ -126,10 +175,10 @@ const props = defineProps({
     gerencias: {
         type: Array,
         required: true,
-    }
+    },
 });
 
-const gerenciasNode = computed(()=>props.gerencias)
+const gerenciasNode = computed(() => props.gerencias);
 
 const refImportarModal = ref();
 
@@ -201,13 +250,19 @@ watch(departamentosIds, (newVal, oldVal) => {
 });
 
 // Paginacion
-const page = ref(1);
-const limit = ref(9);
+const page = ref(0);
+const limit = ref(6);
 const total = ref(0);
 const lastPage = ref(1);
 
-function onPaginate(pageNumber) {
-    page.value = pageNumber;
+function onPaginate(pageEvent) {
+    console.log('Page event data:', pageEvent);
+    if(pageEvent.rows !== limit.value) {
+        limit.value = pageEvent.rows;
+        page.value = 0;
+    } else {
+        page.value = pageEvent.page;
+    }
     onFilter();
 }
 
@@ -220,7 +275,7 @@ function onFilter() {
         estado: estado.value,
         tipoMovimiento: tipoMovimiento.value,
         // Paginacion
-        page: page.value,
+        page: page.value + 1,
         limit: limit.value,
     };
 

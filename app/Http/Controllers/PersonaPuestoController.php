@@ -44,7 +44,7 @@ class PersonaPuestoController extends Controller
             'puestos.item',
             'puestos.estado',
             'puestos.persona_actual_id',
-            'personas.nombreCompleto',
+            'personas.nombre_completo',
             'personas.imagen',
             'personas.ci',
             'personas.exp',
