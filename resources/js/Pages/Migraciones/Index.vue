@@ -23,7 +23,7 @@
             </Toolbar>
         </div>
         <div class="col-4">
-            <Card title="Filtros">
+            <Card>
                 <template #header><strong>Filtros</strong></template>
                 <template #content>
                     <div class="grid">
@@ -33,11 +33,11 @@
                                 Persona</label
                             >
                         </div>
-                        <div class="col-12">
-                            <div style="width: 95%">
+                        <div class="col-12 flex flex-wrap align-items-center">
+                            <div style="width: calc(100% - 31px)">
                                 <vue-simple-typeahead
                                     :key="filterComKey"
-                                    class="form-control form-control-alternative text-xs py-2"
+                                    class="p-inputtext text-xs py-2 w-full"
                                     :items="autoCompleteValues"
                                     :min-input-length="1"
                                     :item-projection="(item) => item.text"
@@ -47,13 +47,14 @@
                                 />
                             </div>
                             <div class="ms-0">
-                                <button
+                                <Button
                                     v-if="item"
-                                    class="btn btn-xs btn-danger m-0 py-1 px-2"
+                                    icon="pi pi-trash"
+                                    severity="danger"
+                                    rounded
                                     @click="cleanFiltroSelect()"
                                 >
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                </Button>
                                 <span
                                     v-else
                                     class="input-group-text text-body form-control form-control-alternative tex-s"
@@ -81,24 +82,32 @@
                                 option-value="value"
                                 placeholder="Estado"
                                 class="w-full"
+                                @change="onFilter"
                                 show-clear
                             />
                         </div>
                         <div class="col-12 mt-2">
-                            <label class="form-control-label text-secondary"
-                                ><i
+                            <label class="form-control-label text-secondary">
+                                <i
                                     class="pi pi-building"
                                     aria-hidden="true"
-                                ></i>
-                                Gerencias</label
-                            >
+                                />
+                                Gerencias
+                                <strong class="mx-3">></strong>
+                                <i
+                                    class="pi pi-sitemap"
+                                    aria-hidden="true"
+                                />
+                                Departamentos
+                            </label>
                         </div>
                         <div class="col-12">
                             <Tree
                                 v-model:selectionKeys="value"
+                                filter
                                 :value="gerenciasNode"
                                 selectionMode="checkbox"
-                                class="w-full"
+                                class="w-full tree-gerencias"
                             ></Tree>
                         </div>
                     </div>
@@ -241,11 +250,11 @@ function onInputChange(e) {
         });
 }
 
-watch(gerenciasIds, (newVal, oldVal) => {
+watch(gerenciasIds, () => {
     onFilter();
 });
 
-watch(departamentosIds, (newVal, oldVal) => {
+watch(departamentosIds, () => {
     onFilter();
 });
 
@@ -303,5 +312,10 @@ onFilter();
 <style lang="scss" scoped>
 .toolbar-card {
     background-color: var(--surface-card);
+}
+.tree-gerencias {
+    height: 450px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 </style>

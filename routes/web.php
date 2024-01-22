@@ -38,10 +38,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/migraciones', function ()
     return Inertia::render('Migraciones/Index',['gerencias'=> Gerencia::select('id', 'nombre')->get()->map(function ($gerencia) {
         return [
           'key' => 'g-' . $gerencia->id,
+          'icon' => 'pi pi-building',
           'label' => $gerencia->nombre,
           'children' => $gerencia->departamento->map(function ($dep) {
             return [
               'key' => 'd-' . $dep->id,
+              'icon' => 'pi pi-sitemap',
               'label' => $dep->nombre
             ];
           })

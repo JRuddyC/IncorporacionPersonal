@@ -42,10 +42,14 @@
                         src="https://wpdmcdn.s3.amazonaws.com/me.jpg"
                     /> -->
                 </div>
-                <div class="mc-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. ...
+                <div v-if="descPos === 1" class="mc-description">
+                    Información de la persona
+                </div>
+                <div v-if="descPos === 2" class="mc-description">
+                    información del puesto
+                </div>
+                <div v-if="descPos === 3" class="mc-description">
+                    información de requisitos del puesto
                 </div>
             </div>
             <a class="mc-btn-action" @click="onClickCard">
@@ -61,28 +65,35 @@
             <div class="mc-footer">
                 <h4>Opciones</h4>
                 <Button
+                    v-if="!esAcefalia"
+                    :disabled="descPos === 1"
                     class="p p-button-lg mr-3"
                     icon="pi pi-user-plus"
                     severity="secondary"
                     text
                     raised
                     rounded
+                    @click="()=>descPos = 1"
                 />
                 <Button
+                    :disabled="descPos === 2"
                     class="p p-button-lg mr-3"
                     icon="pi pi-briefcase"
                     severity="secondary"
                     text
                     raised
                     rounded
+                    @click="()=>descPos = 2"
                 />
                 <Button
+                    :disabled="descPos === 3"
                     class="p p-button-lg"
                     icon="pi pi-flag-fill"
                     severity="secondary"
                     text
                     raised
                     rounded
+                    @click="()=>descPos = 3"
                 />
             </div>
         </article>
@@ -94,6 +105,7 @@ import { ref } from "vue";
 import Button from "primevue/button";
 import { computed } from "vue";
 import Tag from "primevue/tag";
+import axios from "axios";
 
 const props = defineProps({
     puesto: {
@@ -104,14 +116,40 @@ const props = defineProps({
 
 const esAcefalia = computed(() => !props.puesto.persona_actual_id);
 
+const descPos = ref(esAcefalia.value? 2 : 1 );
+// 1: persInfo, 2:puesto desc , 3:requerimientos
 const isActive = ref(false);
 const animation = ref(false);
 function onClickCard() {
     animation.value = true;
+    getDetalleReg();
     setTimeout(function () {
         isActive.value = !isActive.value;
         animation.value = false;
     }, 800);
+}
+
+const loading = ref(false);
+const detallePuesto = ref();
+const requisitos = computed(() => {
+return detallePuesto.value?.requisitos?.length ? detallePuesto.value?.requisitos : {};
+});
+function getDetalleReg() {
+    if (!detallePuesto.value?.id && !loading.value) {
+        loading.value = true;
+        axios
+        .get(`/api/persona-puesto/${props.puesto.id}`)
+        .then(function (response) {
+            if (response.data) {
+            detallePuesto.value = response.data;
+            }
+            loading.value = false;
+        })
+        .catch(function (error) {
+            loading.value = false;
+            console.log('error:', error.data)
+        });
+    }
 }
 </script>
 

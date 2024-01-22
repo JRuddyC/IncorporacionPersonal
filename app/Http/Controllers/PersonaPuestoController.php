@@ -61,7 +61,7 @@ class PersonaPuestoController extends Controller
 
     public function obtenerInfoDePersonapuesto($puestoId)
     {
-        $personaPuesto = Puesto::with(['persona_actual', 'departamento.gerencia', 'requisitos_puesto.requisito'])->find($puestoId);
+        $personaPuesto = Puesto::with(['persona_actual', 'departamento.gerencia', 'requisitos'])->find($puestoId);
 
         return response()->json($personaPuesto);
     }
@@ -72,17 +72,17 @@ class PersonaPuestoController extends Controller
         $result = DB::table('puestos')
             ->leftJoin('personas', 'personas.id', '=', 'puestos.persona_actual_id')
             ->orWhere(DB::raw('CAST(puestos.item AS CHAR)'), 'LIKE', $keyword . "%")
-            ->orWhere('personas.nombreCompleto', 'LIKE', $keyword . "%")
-            ->select(['puestos.item as item', 'personas.nombreCompleto as nombreCompleto'])
+            ->orWhere('personas.nombre_completo', 'LIKE', $keyword . "%")
+            ->select(['puestos.item as item', 'personas.nombre_completo as nombre_completo'])
             ->limit(6)->get();
         $results = [];
         if (ctype_digit($keyword)) {
             $results = $result->map(function ($obj) {
-                return (object) ['text' => "" . $obj->item . ": " . ($obj->nombreCompleto ? $obj->nombreCompleto : "ACEFALIA"), 'item' => $obj->item];
+                return (object) ['text' => "" . $obj->item . ": " . ($obj->nombre_completo ? $obj->nombre_completo : "ACEFALIA"), 'item' => $obj->item];
             });
         } else {
             $results = $result->map(function ($obj) {
-                return (object) ['text' => $obj->nombreCompleto . " [" . $obj->item . "]", 'item' => $obj->item];
+                return (object) ['text' => $obj->nombre_completo . " [" . $obj->item . "]", 'item' => $obj->item];
             });
         }
         return response()->json(['elementos' => $results], 200);
