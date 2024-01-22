@@ -3,8 +3,8 @@
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-                <form action="#" class="sign-in-form" form @submit.prevent="submit">
-                    <h2 class="title">Registrarse</h2>
+                <form action="#" class="sign-in-form" @submit.prevent="submit">
+                    <h2 class="title">Registro</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
                         <InputText

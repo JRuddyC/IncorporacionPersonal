@@ -2,19 +2,25 @@
     <Head title="Login" />
     <div class="container">
         <div class="forms-container">
-            <div class="signin-signup">
-                <transition-group name="p-message" tag="div" v-if="form.errors">
-                    <Message
+            <transition-group name="p-message" tag="div" v-if="form.errors">
+                <Toast
+                    v-for="(error, key) of form.errors"
+                    severity="error"
+                    :key="key"
+                    >{{ error }}</Toast
+                >
+                <!--<Message
                         v-for="(error, key) of form.errors"
                         severity="error"
                         :key="key"
                         >{{ error }}</Message
-                    >
-                </transition-group>
+                    >-->
+            </transition-group>
+            <div class="signin-signup">
                 <form action="#" class="sign-in-form">
                     <h2 class="title">Iniciar sesión</h2>
                     <div class="input-field">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-envelope"></i>
                         <InputText
                             id="email1"
                             v-model="form.email"
@@ -77,6 +83,7 @@ import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import Password from "primevue/password";
 import Message from "primevue/message";
+import Toast from "primevue/toast";
 
 export default {
     components: {
@@ -86,6 +93,7 @@ export default {
         Password,
         Message,
         Head,
+        Toast,
     },
     computed: {
         logoColor() {
